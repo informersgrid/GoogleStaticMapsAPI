@@ -1,44 +1,51 @@
-
-APIKEY = "AIzaSyDA4yWXAXzJyN7kckJWZmCX2vxsFqpttss"
+# Enter your Google Static Maps API access key between the ""
+APIKEY = ""
+# Default Image Dimensions
 DEFAULT_IMAGE_LENGTH = 600
 DEFAULT_IMAGE_HEIGHT = 600
-DEFAULT_ZOOM = 18
+# Default Map Zoom
+DEFAULT_ZOOM = 16
+# Default Intitialization Latitude and Longitude
 DEFAULT_LATITUDE = 0
 DEFAULT_LONGITUDE = 0
+# Default Image Scale
 DEFAULT_SCALE = 0
 
-
+# Google Map Path Class
 class GoogleMapsPath:
 
+    # Intitialize Path Parameters
     def __init__(self,color="0x0000ff",weight=5):
+        # Path Color
         self.color = color
+        # Path Weight (Thickness)
         self.weight = weight
+        # Path Coordinates (Latitude,Longitude) List
         self.coordinates = []
+        # Set Default Path Visibility to Off (False)
         self.visible = False
 
         #TODO Fillcolor,geodesic,encoded polylines, etc.
 
+    # Append new coordinate to path coordinate list
     def add_to_path(self,lat,long):
         self.coordinates.append([lat,long])
-        # self.coordinates.append(str(lat)+","+str(long))
-        # print("Adding to path")
-        # print(self.coordinates)
 
-    def get_path(self):
+    # Get List of path Coordinates
+    def get_path_list(self):
         path_str = ""
         for coord in self.coordinates:
-            path_str = path_str + "|"+str(coord[0]) + "," + str(coord[1])
-        # print(path_str)
+            path_str = path_str + "|"+str(self.coord[0]) + "," + str(self.coord[1])
         return path_str
 
     def get_path_str(self):
-        str = ""
+        formatted_str = ""
         if self.visible == True:
-            str = "&path=color:" + str(path.color) \
-                  + "|weight:" + str(path.weight)  \
-                  + self.get_path()
+            formatted_str = "&path=color:" + str(self.color) \
+                  + "|weight:" + str(self.weight)  \
+                  + self.get_path_list()
 
-        return str
+        return formatted_str
 
 
 class GoogleMapsMarker:
