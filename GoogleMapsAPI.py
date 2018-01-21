@@ -10,6 +10,8 @@ DEFAULT_LATITUDE = 0
 DEFAULT_LONGITUDE = 0
 # Default Image Scale
 DEFAULT_SCALE = 0
+DEFAULT_IMAGE_FORAMT = "png"
+DEFAULT_MAP_TYPE = "hybrid"
 
 # Google Map Path Class
 class GoogleMapsPath:
@@ -47,11 +49,13 @@ class GoogleMapsPath:
 
         return formatted_str
 
-
+# Google Maps Marker Class
 class GoogleMapsMarker:
-
-    def __init__(self):
-        self.visible = False
+    
+    # Initialise Marker Parameters
+    def __init__(self,visible=False):
+        # Set Default Marker Visibility to False
+        self.visible = visible
         self.color = []
         self.label = []
         self.label_position = [] # Can be in string "latitude,longitude" format or a valid Address string
@@ -82,30 +86,44 @@ class GoogleMapsMarker:
         return str
 
 
-class GoogleMapAPI:
-
-    def __init__(self,api_key = APIKEY,latitude=DEFAULT_LATITUDE,longitude=DEFAULT_LONGITUDE,zoom=DEFAULT_ZOOM,iLength=DEFAULT_IMAGE_LENGTH,iHeight=DEFAULT_IMAGE_HEIGHT,scale=DEFAULT_SCALE,format="png",map_type="hybrid",path=GoogleMapsPath):
+class GoogleStaticMapAPI:
+    # Intitialization of Class Members
+    def __init__(self,api_key = APIKEY,latitude=DEFAULT_LATITUDE,longitude=DEFAULT_LONGITUDE,zoom=DEFAULT_ZOOM,iLength=DEFAULT_IMAGE_LENGTH,iHeight=DEFAULT_IMAGE_HEIGHT,scale=DEFAULT_SCALE,format=DEFAULT_IMAGE_FORMAT,map_type=DEFAULT_MAP_TYPE,path=GoogleMapsPath,marker=GoogleMapsMarker):
+        # Central Coordinates (Latitude and Longitude)
         self.latitude = latitude
         self.longitude = longitude
+        # Zoom Level
         self.zoom = zoom
+        # Map Image Dimentions (Length x Height)
         self.iLength = iLength
         self.iHeight = iHeight
+        # Map Image Scale Factor
         self.scale = scale
+        # Map Image Format
         self.format = format
+        # Map Type
         self.map_type = map_type
-        self.marker = GoogleMapsMarker()
+        # Google Maps Marker: an object of class GoogleMapsMarker
+        self.marker = marker
+        # Google Static Maps API Key
         self.api_key = api_key
+        # Google Maps Path: an object of class GoogleMapsPath
         self.path = path
+        # Base URL for Static Maps
         self.BASE_URL = "https://maps.googleapis.com/maps/api/staticmap?"
 
+    # Method that genterates and returns the Google Static Maps API URL
     def get_url(self):
+        # Initialise the URL with the BASE_URL
         url = self.BASE_URL
+        # Append other Map parametrs in the required format
         url += "center=" + str(self.latitude)+","+str(self.longitude)\
               + "&zoom=" + str(self.zoom)\
               + "&size=" + str(self.iLength) + "x" + str(self.iHeight)\
               + "&maptype="+ str(self.map_type)\
               + self.marker.get_marker_str()\
               + "&key=" + str(self.api_key)
+        # Return generated URL
         return url
 
 
