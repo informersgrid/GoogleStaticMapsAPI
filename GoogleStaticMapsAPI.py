@@ -10,7 +10,7 @@ DEFAULT_LATITUDE = 0
 DEFAULT_LONGITUDE = 0
 # Default Image Scale
 DEFAULT_SCALE = 0
-DEFAULT_IMAGE_FORAMT = "png"
+DEFAULT_IMAGE_FORMAT = "png"
 DEFAULT_MAP_TYPE = "hybrid"
 
 # Google Map Path Class
@@ -70,7 +70,6 @@ class GoogleMapsMarker:
         self.size.append(size)
         self.visible = True #Automatically Make the markers visible
 
-
     def get_marker_str(self):
         str = ""
         if self.visible==True:
@@ -88,7 +87,7 @@ class GoogleMapsMarker:
 
 class GoogleStaticMapAPI:
     # Intitialization of Class Members
-    def __init__(self,api_key = APIKEY,latitude=DEFAULT_LATITUDE,longitude=DEFAULT_LONGITUDE,zoom=DEFAULT_ZOOM,iLength=DEFAULT_IMAGE_LENGTH,iHeight=DEFAULT_IMAGE_HEIGHT,scale=DEFAULT_SCALE,format=DEFAULT_IMAGE_FORMAT,map_type=DEFAULT_MAP_TYPE,path=GoogleMapsPath,marker=GoogleMapsMarker):
+    def __init__(self,api_key = APIKEY,latitude=DEFAULT_LATITUDE,longitude=DEFAULT_LONGITUDE,zoom=DEFAULT_ZOOM,iLength=DEFAULT_IMAGE_LENGTH,iHeight=DEFAULT_IMAGE_HEIGHT,scale=DEFAULT_SCALE,format=DEFAULT_IMAGE_FORMAT,map_type=DEFAULT_MAP_TYPE, path=GoogleMapsPath(), marker=GoogleMapsMarker()):
         # Central Coordinates (Latitude and Longitude)
         self.latitude = latitude
         self.longitude = longitude
